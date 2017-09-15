@@ -37,8 +37,8 @@ public class SpawnManager : MonoBehaviour
             for (int j = 0; j < gridHeight; j++)
             {
                 GameObject go = Instantiate<GameObject>(spawnPrefab, new Vector3(i * 2, 0, j * 2), Quaternion.identity);
-                Material mat = go.GetComponent<Renderer>().material;
-                mat.SetTexture("_AnimMap", textures[2]);
+                //Material mat = go.GetComponent<Renderer>().material;
+                //mat.SetTexture("_AnimMap", textures[2]);
             }
         }
     }

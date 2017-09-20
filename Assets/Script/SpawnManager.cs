@@ -22,14 +22,20 @@ public class SpawnManager : MonoBehaviour
 
 
     Texture[] textures;
+    Material[] mats;
 
     void Start()
     {
         max = states.Length;
         textures = new Texture2D[max];
+        mats = new Material[max];
+        Material m = spawnPrefab.GetComponent<Renderer>().sharedMaterial;
         for(int i =0;i<max;i++)
         {
             textures[i] = Resources.Load<Texture>("AnimMap/Footman_Blue_" + states[i]);
+            mats[i] = Instantiate(m) as Material;
+            mats[i].SetTexture("_AnimMap", textures[i % max]);
+            mats[i].name = states[i].ToString();
         }
 
         for (int i = 0; i < gridWidth; i++)
@@ -37,8 +43,8 @@ public class SpawnManager : MonoBehaviour
             for (int j = 0; j < gridHeight; j++)
             {
                 GameObject go = Instantiate<GameObject>(spawnPrefab, new Vector3(i * 2, 0, j * 2), Quaternion.identity);
-                //Material mat = go.GetComponent<Renderer>().material;
-                //mat.SetTexture("_AnimMap", textures[2]);
+                go.GetComponent<Renderer>().material = mats[i % 8];
+                //mat.SetTexture("_AnimMap", textures[i % max]);
             }
         }
     }
